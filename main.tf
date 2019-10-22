@@ -115,15 +115,15 @@ resource "aws_nat_gateway" "nat" {
   count = local.nat ? (var.tiered_multi_nat ? length(aws_subnet.private_subnets) : 1) : 0
 
   allocation_id = aws_eip.eip[count.index].id
-  subnet_id     = aws_subnet.private_subnets[count.index].id
+  subnet_id     = aws_subnet.subnets[count.index].id
 
   tags = {
     Name = "${var.vpc_name} ${substr(
-      aws_subnet.private_subnets[count.index].availability_zone,
+      aws_subnet.subnets[count.index].availability_zone,
       -1,
       -1,
     )}"
-    Tier = "private"
+    Tier = "public"
   }
 }
 
