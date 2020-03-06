@@ -1,11 +1,15 @@
 variable "cidr_block" {
   description = "CIDR block of the new VPC"
 }
+
 variable "vpc_name" {
   description = "VPC name"
 }
 
-
+variable "subnet_offset" {
+  description = "Offset for subnets within a range"
+  type = number
+}
 variable "tiered" {
   description = "Create tiered subnet configuration: private/public subnets"
   default     = true

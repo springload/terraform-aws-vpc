@@ -35,7 +35,7 @@ resource "aws_subnet" "subnets" {
   count = local.subnets_count
 
   vpc_id     = aws_vpc.main.id
-  cidr_block = cidrsubnet(var.cidr_block, 4, count.index + 10) # 10 subnets offset
+  cidr_block = cidrsubnet(var.cidr_block, 4, count.index + local.subnet_offset)
 
   availability_zone       = element(data.aws_availability_zones.az.names, count.index)
   map_public_ip_on_launch = true
@@ -95,7 +95,7 @@ resource "aws_route_table" "private_routes_nat" {
 }
 
 resource "aws_route_table_association" "private_associations" {
-  count = length(aws_subnet.private_subnets)
+  count = var.tiered ? length(aws_subnet.private_subnets) : 0
 
   subnet_id = aws_subnet.private_subnets[count.index].id
   route_table_id = local.nat ? element(
