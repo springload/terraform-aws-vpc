@@ -22,6 +22,6 @@ variable "tiered_multi_nat" {
 }
 
 locals {
-  subnets_count = "${length(data.aws_availability_zones.az.names)}"
+  subnets_count = length(data.aws_availability_zones.az.names)
   nat           = var.tiered_nat || var.tiered_multi_nat
 }
