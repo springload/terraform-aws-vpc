@@ -5,6 +5,12 @@ variable "vpc_name" {
   description = "VPC name"
 }
 
+variable "ipv6" {
+  type        = bool
+  description = "Enable IPv6 for the VPC"
+  default     = true
+}
+
 
 variable "tiered" {
   description = "Create tiered subnet configuration: private/public subnets"
